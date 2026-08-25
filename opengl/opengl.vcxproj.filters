@@ -9,6 +9,8 @@
     <ClCompile Include="source\VertexBuffer.cpp" />
     <ClCompile Include="source\IndexBuffer.cpp" />
     <ClCompile Include="source\VertexArray.cpp" />
+    <ClCompile Include="source\Shader.cpp" />
+    <ClCompile Include="source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\Renderer.h" />
@@ -16,5 +18,7 @@
     <ClInclude Include="source\IndexBuffer.h" />
     <ClInclude Include="source\VertexArray.h" />
     <ClInclude Include="source\VertexBufferLayout.h" />
+    <ClInclude Include="source\Shader.h" />
+    <ClInclude Include="source\Window.h" />
   </ItemGroup>
 </Project>

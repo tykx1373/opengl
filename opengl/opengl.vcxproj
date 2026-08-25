@@ -143,21 +143,25 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\Shader.cpp" />
     <ClCompile Include="source\Application.cpp" />
     <ClCompile Include="source\IndexBuffer.cpp" />
     <ClCompile Include="source\Renderer.cpp" />
     <ClCompile Include="source\VertexBuffer.cpp" />
     <ClCompile Include="source\VertexArray.cpp" />
+    <ClCompile Include="source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resource\basic.shader" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\Shader.h" />
     <ClInclude Include="source\IndexBuffer.h" />
     <ClInclude Include="source\Renderer.h" />
     <ClInclude Include="source\VertexBuffer.h" />
     <ClInclude Include="source\VertexArray.h" />
     <ClInclude Include="source\VertexBufferLayout.h" />
+    <ClInclude Include="source\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
