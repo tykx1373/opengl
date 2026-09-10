@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -112,12 +112,13 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)vendor\include;$(ProjectDir)src\vendor\;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)lib\glew;$(ProjectDir)lib\glfw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)vendor\lib\glew;$(ProjectDir)vendor\lib\glfw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);glfw3.lib;opengl32.lib;glew32s.lib</AdditionalDependencies>
     </Link>
     <Manifest>
@@ -143,25 +144,49 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="source\Shader.cpp" />
-    <ClCompile Include="source\Application.cpp" />
-    <ClCompile Include="source\IndexBuffer.cpp" />
-    <ClCompile Include="source\Renderer.cpp" />
-    <ClCompile Include="source\VertexBuffer.cpp" />
-    <ClCompile Include="source\VertexArray.cpp" />
-    <ClCompile Include="source\Window.cpp" />
+    <ClCompile Include="src\ImGuiLayer.cpp" />
+    <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\IndexBuffer.cpp" />
+    <ClCompile Include="src\Renderer.cpp" />
+    <ClCompile Include="src\Shader.cpp" />
+    <ClCompile Include="src\tests\Test.cpp" />
+    <ClCompile Include="src\tests\TestTexture2D.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
+    <ClCompile Include="src\vendor\imgui\imgui.cpp" />
+    <ClCompile Include="src\vendor\imgui\imgui_demo.cpp" />
+    <ClCompile Include="src\vendor\imgui\imgui_draw.cpp" />
+    <ClCompile Include="src\vendor\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="src\vendor\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\vendor\imgui\imgui_tables.cpp" />
+    <ClCompile Include="src\vendor\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\VertexArray.cpp" />
+    <ClCompile Include="src\VertexBuffer.cpp" />
+    <ClCompile Include="src\WindowLayout.cpp" />
+    <ClCompile Include="src\tests\TestClearColor.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="resource\basic.shader" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="source\Shader.h" />
-    <ClInclude Include="source\IndexBuffer.h" />
-    <ClInclude Include="source\Renderer.h" />
-    <ClInclude Include="source\VertexBuffer.h" />
-    <ClInclude Include="source\VertexArray.h" />
-    <ClInclude Include="source\VertexBufferLayout.h" />
-    <ClInclude Include="source\Window.h" />
+    <ClInclude Include="src\ImGuiLayer.h" />
+    <ClInclude Include="src\IndexBuffer.h" />
+    <ClInclude Include="src\Renderer.h" />
+    <ClInclude Include="src\Shader.h" />
+    <ClInclude Include="src\tests\TestTexture2D.h" />
+    <ClInclude Include="src\Texture.h" />
+    <ClInclude Include="src\vendor\imgui\imconfig.h" />
+    <ClInclude Include="src\vendor\imgui\imgui.h" />
+    <ClInclude Include="src\vendor\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="src\vendor\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="src\vendor\imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="src\vendor\imgui\imgui_internal.h" />
+    <ClInclude Include="src\vendor\imgui\imstb_rectpack.h" />
+    <ClInclude Include="src\vendor\imgui\imstb_textedit.h" />
+    <ClInclude Include="src\vendor\imgui\imstb_truetype.h" />
+    <ClInclude Include="src\vendor\stb\stb_image.h" />
+    <ClInclude Include="src\VertexArray.h" />
+    <ClInclude Include="src\VertexBuffer.h" />
+    <ClInclude Include="src\VertexBufferLayout.h" />
+    <ClInclude Include="src\WindowLayout.h" />
+    <ClInclude Include="src\tests\Test.h" />
+    <ClInclude Include="src\tests\TestClearColor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
