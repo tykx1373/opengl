@@ -34,5 +34,5 @@ namespace test
 	};
 
 	// 释放 TestTexture2D 共享的 Shader/Texture（必须在 glfwTerminate() 之前调用）
-	static void ResetSharedResources();
+	void ResetSharedResources();
 }

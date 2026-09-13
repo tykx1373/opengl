@@ -52,7 +52,7 @@ namespace test
 		GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
 		if (!g_Shader)
-			g_Shader = std::make_shared<Shader>("res/shaders/Basic.shader");
+			g_Shader = std::make_shared<Shader>("res/shaders/vertex.shader", "res/shaders/fragment.shader");
 		if (!g_Texture)
 			g_Texture = std::make_shared<Texture>("res/textures/Taffy.png");
 

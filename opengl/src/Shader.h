@@ -15,12 +15,12 @@ struct ShaderProgramSource
 class Shader
 {
 private:
-	std::string m_FilePath;
+	std::string m_ShaderPath_Vertex, m_ShaderPath_Fragment;
 	unsigned int m_RendererID;
 	std::unordered_map <std::string, int> m_UniformLocationCache;
 	std::unordered_set<std::string> m_ReportedUniforms; // 已警告过缺失的 uniform，避免重复刷屏
 public:
-	Shader(const std::string& filepath);
+	Shader(const std::string& shaderpath_vertex, const std::string& shaderpath_fragment);
 	~Shader();
 
 	void Bind() const;
@@ -31,7 +31,9 @@ public:
 	void SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3);
 	void SetUniformMat4f(const std::string& name, const glm::mat4& matrix);
 private:
-	static ShaderProgramSource ParseShader(const std::string& filepath);
+	// 分别读取两个独立的 vertex / fragment shader 文件
+	static ShaderProgramSource ParseShader(const std::string& shaderpath_vertex, const std::string& shaderpath_fragment);
+	static std::string ReadSingleShaderFile(const std::string& path);
 	static unsigned int CompileShader(unsigned int type, const std::string& source);
 	int CreateShader(const std::string& VertexShader, const std::string& FragmentShader);
 

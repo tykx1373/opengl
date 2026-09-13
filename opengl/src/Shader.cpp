@@ -12,13 +12,13 @@
 #include <string>
 #include <vector>
 
-Shader::Shader(const std::string &filepath)
-	: m_FilePath(filepath), m_RendererID(0)
+Shader::Shader(const std::string &shaderpath_vertex, const std::string &shaderpath_fragment)
+	: m_ShaderPath_Vertex(shaderpath_vertex), m_ShaderPath_Fragment(shaderpath_fragment), m_RendererID(0)
 {
-	ShaderProgramSource source = ParseShader(filepath);
+	ShaderProgramSource source = ParseShader(m_ShaderPath_Vertex, m_ShaderPath_Fragment);
 	m_RendererID = CreateShader(source.VertexSource, source.FragmentSource);
 	if (m_RendererID == 0)
-		throw std::runtime_error("Failed to create shader program: " + filepath);
+		throw std::runtime_error("Failed to create shader program: " + m_ShaderPath_Vertex + " / " + m_ShaderPath_Fragment);
 	std::cout << "Shader created, new ID=" << m_RendererID << "\n";
 }
 
@@ -29,53 +29,31 @@ Shader::~Shader()
 	GLCall(glDeleteProgram(m_RendererID));	
 }
 
-ShaderProgramSource Shader::ParseShader(const std::string &filepath)
+std::string Shader::ReadSingleShaderFile(const std::string& path)
 {
-	std::ifstream stream(filepath);
+	std::ifstream stream(path);
 	if (!stream.is_open())
-		throw std::runtime_error("Failed to open shader file: " + filepath);
-
-	enum class ShaderType
-	{
-		NONE = -1, VERTEX = 0, FRAGMENT = 1
-	};
+		throw std::runtime_error("Failed to open shader file: " + path);
 
 	std::string line;
-	std::stringstream ss[2];
-	std::string ShaderVersion;
-
-	ShaderType type = ShaderType::NONE;
+	std::stringstream ss;
 	while (getline(stream, line))
 	{
-		if (line.find("#shader") != std::string::npos)//find the shader type declaration line
-		{
-			if (line.find("vertex") != std::string::npos)
-			{
-				type = ShaderType::VERTEX;
-			}
-
-			else if (line.find("fragment") != std::string::npos)
-			{
-				type = ShaderType::FRAGMENT;
-			}
-		}
-		else if (type != ShaderType::NONE)
-		{
-			if (line.find("#version") != std::string::npos)
-			{
-				ShaderVersion = line;
-			}
-			ss[static_cast<int>(type)] << line << '\n';
-		}
+		ss << line << '\n';
 	}
 
-	std::cout << "Shader Version (Vertex): " << ShaderVersion << "\n";
+	std::string content = ss.str();
+	if (content.empty())
+		throw std::runtime_error("Shader file is empty or has no valid content: " + path);
+	return content;
+}
 
-	if (ss[static_cast<int>(ShaderType::VERTEX)].str().empty() ||
-		ss[static_cast<int>(ShaderType::FRAGMENT)].str().empty())
-		throw std::runtime_error("Shader file lacks #shader vertex/fragment section: " + filepath);
-
-	return { ss[0].str(), ss[1].str() };
+ShaderProgramSource Shader::ParseShader(const std::string& shaderpath_vertex, const std::string& shaderpath_fragment)
+{
+	ShaderProgramSource result;
+	result.VertexSource   = ReadSingleShaderFile(shaderpath_vertex);
+	result.FragmentSource = ReadSingleShaderFile(shaderpath_fragment);
+	return result;
 }
 
 unsigned int Shader::CompileShader(unsigned int type, const std::string &source)
