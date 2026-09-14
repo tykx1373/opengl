@@ -44,5 +44,6 @@
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\tests\TestTexture2D.h" />
+    <ClInclude Include="src\OpebGLProfile.h" />
   </ItemGroup>
 </Project>

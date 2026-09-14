@@ -1,6 +1,7 @@
 #include "WindowLayout.h"
 
 #include "Renderer.h"
+#include "OpebGLProfile.h"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -94,16 +95,4 @@ void WindowLayout::InitGLFW(int glMajor_version, int glMinor_version, OPENGL_PRO
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, glMajor_version);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, glMinor_version);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GetProfileType(profile));
-}
-
-int WindowLayout::GetProfileType(OPENGL_PROFILE profile)
-{
-    switch (profile)
-    {
-    case OPENGL_PROFILE::ANY:      return GLFW_OPENGL_ANY_PROFILE;
-    case OPENGL_PROFILE::CORE:     return GLFW_OPENGL_CORE_PROFILE;
-    case OPENGL_PROFILE::COMPAT:   return GLFW_OPENGL_COMPAT_PROFILE;
-    default:
-        throw std::runtime_error("Unknown OpenGL profile");
-    }
 }

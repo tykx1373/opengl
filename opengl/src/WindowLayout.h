@@ -5,7 +5,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-enum class OPENGL_PROFILE{ ANY, CORE, COMPAT };
+#include "OpebGLProfile.h"
 
 struct WindowConfig
 {
@@ -51,5 +51,4 @@ public:
 
 private:
     static void InitGLFW(int major, int minor, OPENGL_PROFILE profile);
-    static int GetProfileType(OPENGL_PROFILE profile);
 };
