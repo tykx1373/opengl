@@ -361,3 +361,10 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# 第三方依赖的预编译库必须入库：上面的 Release/ 规则（针对 VS 构建产物）会误伤
+# vendor 下同名目录，导致 glew32s.lib 被忽略、clone 后无法链接。
+# 注意 git 规则：父目录被排除时无法单独放行其中的文件，必须逐级放行。
+!opengl/vendor/glew/lib/
+!opengl/vendor/glew/lib/Release/
+!opengl/vendor/glew/lib/Release/**
