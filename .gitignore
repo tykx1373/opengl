@@ -368,3 +368,6 @@ FodyWeavers.xsd
 !opengl/vendor/glew/lib/
 !opengl/vendor/glew/lib/Release/
 !opengl/vendor/glew/lib/Release/**
+
+# ImGui 窗口布局等本地界面状态，不应入库
+imgui.ini
