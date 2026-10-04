@@ -17,7 +17,7 @@ namespace test
 		virtual ~Test() {}
 
 		virtual void OnUpdate(float deltaTime) {}
-		virtual void OnRender() { glClearColor(0.3f, 0.4f, 0.0f, 1.0f); }
+		virtual void OnRender() { glClearColor(0.0f, 0.4f, 0.0f, 1.0f); }
 		virtual void OnImGuiRender() {}
 	};
 
@@ -40,4 +40,3 @@ namespace test
 		std::vector<std::pair<std::string, std::function<Test*()>>> m_Tests;
 	};
 }
-

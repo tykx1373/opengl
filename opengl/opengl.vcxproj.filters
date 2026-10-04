@@ -20,6 +20,8 @@
     <ClCompile Include="src\tests\TestClearColor.cpp" />
     <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\tests\TestTexture2D.cpp" />
+    <ClCompile Include="src\BatchRenderer.cpp" />
+    <ClCompile Include="src\tests\TestBatch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\IndexBuffer.h" />
@@ -45,5 +47,7 @@
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\tests\TestTexture2D.h" />
     <ClInclude Include="src\OpebGLProfile.h" />
+    <ClInclude Include="src\BatchRenderer.h" />
+    <ClInclude Include="src\tests\TestBatch.h" />
   </ItemGroup>
 </Project>

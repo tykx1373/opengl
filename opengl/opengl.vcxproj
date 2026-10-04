@@ -182,6 +182,8 @@
     <ClCompile Include="src\VertexArray.cpp" />
     <ClCompile Include="src\VertexBuffer.cpp" />
     <ClCompile Include="src\Window.cpp" />
+    <ClCompile Include="src\BatchRenderer.cpp" />
+    <ClCompile Include="src\tests\TestBatch.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +207,8 @@
     <ClInclude Include="src\VertexBuffer.h" />
     <ClInclude Include="src\VertexBufferLayout.h" />
     <ClInclude Include="src\Window.h" />
+    <ClInclude Include="src\BatchRenderer.h" />
+    <ClInclude Include="src\tests\TestBatch.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\OpebGLProfile.h" />

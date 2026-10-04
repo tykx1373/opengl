@@ -11,6 +11,7 @@
 #include "tests/TestClearColor.h"
 #include "tests/Test.h"
 #include "tests/TestTexture2D.h"
+#include "tests/TestBatch.h"
 
 #include <GL/glew.h>
 
@@ -49,6 +50,10 @@ int main(void)
 
 	testMenu->RegisterTest<test::TestClearColor>("Clear Color");
 	testMenu->RegisterTest<test::TestTexture2D>("2D Texture");
+	testMenu->RegisterTest<test::TestBatch>("Batch Renderer");
+
+	// 启动后停留在菜单，由用户选择测试项
+	currentTest = testMenu;
 
 	while (!window.ShouldClose())
 	{
@@ -87,7 +92,7 @@ int main(void)
 			ImGui::Begin("Test");
 			currentTest->OnImGuiRender();
 			currentTest->OnUpdate(0.0f);
-			if (currentTest != testMenu && ImGui::Button("<-"))
+			if (currentTest != testMenu && ImGui::Button("Exit"))
 			{
 				delete currentTest;
 				currentTest = testMenu;
