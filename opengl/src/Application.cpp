@@ -5,7 +5,7 @@
 #include "VertexArray.h"
 #include "VertexBuffer.h"
 #include "VertexBufferLayout.h"
-#include "WindowLayout.h"
+#include "Window.h"
 #include "ImGuiLayer.h"
 
 #include "tests/TestClearColor.h"
@@ -24,7 +24,7 @@
 
 int main(void)
 {
-	WindowLayout window;
+	Window window;
 
 	if (glewInit() != GLEW_OK)
 	{
@@ -35,15 +35,18 @@ int main(void)
 
 	ImGuiLayer gui(window.GetHandle());
 
-	ImGuiConfigFlags flags = ImGuiConfigFlags_NavEnableKeyboard | ImGuiConfigFlags_NavEnableGamepad | 
-		ImGuiConfigFlags_DockingEnable | ImGuiConfigFlags_ViewportsEnable;
+	// 注意 1：不要开启 ImGuiConfigFlags_ViewportsEnable，多视口会切换 GL 上下文导致主窗口无法正常呈现。
+	// 注意 2：不要开启 ImGuiConfigFlags_NavEnableGamepad，该标志会让 ImGui 每帧调用
+	//         glfwGetGamepadState()，在本机 GLFW 上会阻塞，导致主循环卡死、窗口内容不再刷新（花屏/卡住）。
+	ImGuiConfigFlags flags = ImGuiConfigFlags_NavEnableKeyboard |
+		ImGuiConfigFlags_DockingEnable;
 
 	gui.SetcfgFlags(flags);
-	
+
 	test::Test *currentTest = nullptr;
 	test::TestMenu *testMenu = new test::TestMenu(currentTest);
 	currentTest = testMenu;
-		
+
 	testMenu->RegisterTest<test::TestClearColor>("Clear Color");
 	testMenu->RegisterTest<test::TestTexture2D>("2D Texture");
 
@@ -66,6 +69,15 @@ int main(void)
 			continue;
 		}
 
+		// ImGui 渲染后会残留 FBO / glViewport / GL_SCISSOR_TEST 状态，
+		// 每帧开始前必须恢复到主窗口的默认帧缓冲、完整视口并关闭裁剪，
+		// 否则 OnRender 的 glClear / 绘制会落到错误目标或被裁剪，出现花屏/白屏。
+		int fbW = 0, fbH = 0;
+		glfwGetFramebufferSize(window.GetHandle(), &fbW, &fbH);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glViewport(0, 0, fbW, fbH);
+		glDisable(GL_SCISSOR_TEST);
+
 		Renderer::Clear();       // 先清屏
 		currentTest->OnRender(); // 再渲染场景
 
@@ -84,6 +96,7 @@ int main(void)
 		}
 
 		gui.EndFrame();
+
 		window.Swap();
 	}
 

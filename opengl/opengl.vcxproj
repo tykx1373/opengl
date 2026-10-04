@@ -181,7 +181,7 @@
     <ClCompile Include="src\vendor\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\VertexArray.cpp" />
     <ClCompile Include="src\VertexBuffer.cpp" />
-    <ClCompile Include="src\WindowLayout.cpp" />
+    <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -204,7 +204,7 @@
     <ClInclude Include="src\VertexArray.h" />
     <ClInclude Include="src\VertexBuffer.h" />
     <ClInclude Include="src\VertexBufferLayout.h" />
-    <ClInclude Include="src\WindowLayout.h" />
+    <ClInclude Include="src\Window.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\OpebGLProfile.h" />

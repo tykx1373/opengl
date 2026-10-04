@@ -1,4 +1,4 @@
-#include "WindowLayout.h"
+#include "Window.h"
 
 #include "Renderer.h"
 #include "OpebGLProfile.h"
@@ -10,7 +10,7 @@
 
 #include <stdexcept>
 
-WindowLayout::WindowLayout(const WindowConfig &cfg)
+Window::Window(const WindowConfig &cfg)
     : m_cfg(cfg), m_Window(nullptr)
 {
     InitGLFW(cfg.glMajor_version, cfg.glMinor_version, cfg.profile);
@@ -35,7 +35,7 @@ WindowLayout::WindowLayout(const WindowConfig &cfg)
     glViewport(0, 0, fbWidth, fbHeight);
 }
 
-WindowLayout::~WindowLayout()
+Window::~Window()
 {
     if (m_Window)
     {
@@ -46,13 +46,13 @@ WindowLayout::~WindowLayout()
     }
 }
 
-WindowLayout::WindowLayout(WindowLayout &&other) noexcept
+Window::Window(Window &&other) noexcept
     : m_Window(other.m_Window)
 {
     other.m_Window = nullptr;
 }
 
-WindowLayout &WindowLayout::operator=(WindowLayout &&other) noexcept
+Window &Window::operator=(Window &&other) noexcept
 {
     if (this != &other)
     {
@@ -64,27 +64,27 @@ WindowLayout &WindowLayout::operator=(WindowLayout &&other) noexcept
     return *this;
 }
 
-void WindowLayout::Swap() const
+void Window::Swap() const
 {
     glfwSwapBuffers(m_Window);
 }
 
-void WindowLayout::MakeCurrent() const
+void Window::MakeCurrent() const
 {
     glfwMakeContextCurrent(m_Window);
 }
 
-bool WindowLayout::ShouldClose() const
+bool Window::ShouldClose() const
 {
     return glfwWindowShouldClose(m_Window);
 }
 
-void WindowLayout::PullEvents()
+void Window::PullEvents()
 {
     glfwPollEvents();
 }
 
-void WindowLayout::InitGLFW(int glMajor_version, int glMinor_version, OPENGL_PROFILE profile)
+void Window::InitGLFW(int glMajor_version, int glMinor_version, OPENGL_PROFILE profile)
 {
     [[maybe_unused]] static bool glfw_initialized = []() {
         if (!glfwInit())

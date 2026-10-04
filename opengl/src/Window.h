@@ -9,8 +9,8 @@
 
 struct WindowConfig
 {
-    int           width    =   2400;
-    int           height   =   1800;
+    int           width    =   1280;
+    int           height   =   720;
     const char*   title    =   "OpenGL Test";
     GLFWmonitor*  monitor  =   nullptr;
     GLFWwindow*   share    =   nullptr;
@@ -22,23 +22,23 @@ struct WindowConfig
     bool             vsync = true;
 };
 
-class WindowLayout
+class Window
 {
 private:
     GLFWwindow* m_Window;
     WindowConfig m_cfg = {};
 
 public:
-    explicit WindowLayout(const WindowConfig &config = {});
-    ~WindowLayout();
+    explicit Window(const WindowConfig &config = {});
+    ~Window();
 
     // 禁止拷贝
-    WindowLayout(const WindowLayout&) = delete;
-    WindowLayout &operator=(const WindowLayout&) = delete;
+    Window(const Window&) = delete;
+    Window &operator=(const Window&) = delete;
 
     // 允许移动
-    WindowLayout(WindowLayout &&other) noexcept;
-    WindowLayout &operator=(WindowLayout &&other) noexcept;
+    Window(Window &&other) noexcept;
+    Window &operator=(Window &&other) noexcept;
 
     GLFWwindow* GetHandle() { return m_Window; }
 
