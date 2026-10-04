@@ -676,7 +676,11 @@ void ImGui_ImplOpenGL3_UpdateTexture(ImTextureData* tex)
     // Backup GL_UNPACK state that we modify, restore on exit.
     GLint last_unpack_row_length = 0; (void)last_unpack_row_length;
     GLint last_unpack_alignment = 0; (void)last_unpack_alignment;
-    if (tex->Status == ImTextureStatus_WantCreate || tex->Status == ImTextureStatus_WantUpdates)
+    // 必须在此处（tex->Status 被改成 OK 之前）记录是否修改了 UNPACK 状态，
+    // 否则下面 else-if 分支把 Status 置为 OK 后，末尾的恢复条件会判假而永远不恢复，
+    // 从而把 GL_UNPACK_ROW_LENGTH（= 图集宽度）泄漏给调用方，污染后续的 glTexImage2D。
+    const bool did_backup_unpack_state = (tex->Status == ImTextureStatus_WantCreate || tex->Status == ImTextureStatus_WantUpdates);
+    if (did_backup_unpack_state)
     {
 #ifdef GL_UNPACK_ROW_LENGTH // Not on WebGL/ES
         GL_CALL(glGetIntegerv(GL_UNPACK_ROW_LENGTH, &last_unpack_row_length));
@@ -750,7 +754,7 @@ void ImGui_ImplOpenGL3_UpdateTexture(ImTextureData* tex)
         ImGui_ImplOpenGL3_DestroyTexture(tex);
 
     // Restore GL_UNPACK state
-    if (tex->Status == ImTextureStatus_WantCreate || tex->Status == ImTextureStatus_WantUpdates)
+    if (did_backup_unpack_state)
     {
 #ifdef GL_UNPACK_ROW_LENGTH
         GL_CALL(glPixelStorei(GL_UNPACK_ROW_LENGTH, last_unpack_row_length));

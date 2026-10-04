@@ -94,6 +94,8 @@ namespace test
 		Renderer render;
 
 		m_Texture->Bind();
+		m_Shader->Bind();
+		m_Shader->SetUniform1i("u_Texture", 0);
 
 		{
 			glm::mat4 model = glm::translate(glm::mat4(1.0f), m_TranslationA);
